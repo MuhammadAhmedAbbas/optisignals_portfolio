@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OptiSignals — Premium Digital Solutions & Platform Engineering
 
 ![OptiSignals Banner](https://raw.githubusercontent.com/username/optisignals/main/public/banner.png) <!-- Note: User should replace with actual hosted banner if available -->
@@ -115,3 +116,6 @@ This project is private and proprietary. All rights reserved.
 ---
 
 Built with ❤️ by [OptiSignals](https://optisignals.dev)
+=======
+# optisignals_portfolio
+>>>>>>> 99082ce3866b5ca845e0bcbefd834ecca03c850b
