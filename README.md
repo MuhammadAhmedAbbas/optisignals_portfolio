@@ -102,13 +102,4 @@ This project is private and proprietary. All rights reserved.
 
 ---
 
-Built with ❤️ by [OptiSignals](https://optisignals.dev)
 
-
----
-
-## 📜 License
-
-This project is private and proprietary. All rights reserved.
-
----
