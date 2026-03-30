@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 # OptiSignals — Premium Digital Solutions & Platform Engineering
 
-![OptiSignals Banner](https://raw.githubusercontent.com/username/optisignals/main/public/banner.png) <!-- Note: User should replace with actual hosted banner if available -->
+
 
 OptiSignals is an elite digital engineering agency driven by relentless precision and technical excellence. We combine boundless creativity with high-performance architectures to deliver intelligent platforms that execute flawlessly under immense scale.
 
 ## 🚀 Featured Projects
 
-### [Lab Linker](https://lab-on-phone.infinityfreeapp.com/?i=1)
 A revolutionary digital bridge connecting medical labs and patients.
 - **AI-Powered Agent:** Explains medical terms and predicts lab workflows.
 - **Lifetime Health Records:** Centralized digital records for patients.
