@@ -112,8 +112,3 @@ Built with ❤️ by [OptiSignals](https://optisignals.dev)
 This project is private and proprietary. All rights reserved.
 
 ---
-
-Built with ❤️ by [OptiSignals](https://optisignals.dev)
-=======
-# optisignals_portfolio
->>>>>>> 99082ce3866b5ca845e0bcbefd834ecca03c850b
