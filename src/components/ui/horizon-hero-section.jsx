@@ -17,14 +17,20 @@ export const Component = () => {
 
     // SCENE SETUP
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020617, 0.003); // Match tailwind dark bg (#020617)
+    scene.fog = new THREE.FogExp2(0x020617, 0.003);
 
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 25;
     camera.position.y = 8;
     camera.rotation.x = -0.2;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
+      alpha: true,
+      powerPreference: "high-performance",
+      stencil: false,
+      depth: true
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
@@ -33,9 +39,9 @@ export const Component = () => {
     const renderScene = new RenderPass(scene, camera);
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.5, // intensity
-      0.4, // radius
-      0.85 // threshold
+      1.5,
+      0.4,
+      0.85
     );
     bloomPass.tintColor = new THREE.Color(0x3b82f6);
     
@@ -49,17 +55,15 @@ export const Component = () => {
     const posArray = new Float32Array(particlesCount * 3);
     const colorsArray = new Float32Array(particlesCount * 3);
 
-    const color1 = new THREE.Color(0x60a5fa); // bg-blue-400
-    const color2 = new THREE.Color(0x818cf8); // bg-indigo-400
-    const color3 = new THREE.Color(0x0ea5e9); // bg-sky-500
+    const color1 = new THREE.Color(0x60a5fa);
+    const color2 = new THREE.Color(0x818cf8);
+    const color3 = new THREE.Color(0x0ea5e9);
 
     for (let i = 0; i < particlesCount * 3; i += 3) {
-      // Create a cylindrical/spherical distro
       posArray[i] = (Math.random() - 0.5) * 150;
       posArray[i + 1] = (Math.random() - 0.5) * 150 + 20;
       posArray[i + 2] = (Math.random() - 0.5) * 150 - 20;
 
-      // Mix colors
       const randColor = Math.random();
       const c = randColor < 0.33 ? color1 : randColor < 0.66 ? color2 : color3;
       colorsArray[i] = c.r;
@@ -85,19 +89,17 @@ export const Component = () => {
     const planeGeometry = new THREE.PlaneGeometry(100, 100, 60, 60);
     planeGeometry.rotateX(-Math.PI / 2);
 
-    // Distort vertices to make terrain
     const vertices = planeGeometry.attributes.position.array;
     for (let i = 0; i < vertices.length; i += 3) {
       const x = vertices[i];
       const z = vertices[i + 2];
-      // Generate some mountains using sin waves
       const y = Math.sin(x / 5) * 3 + Math.cos(z / 4) * 4;
-      vertices[i + 1] = y > 0 ? y * 1.5 : y * 0.2; // Exaggerate peaks, flatten valleys
+      vertices[i + 1] = y > 0 ? y * 1.5 : y * 0.2;
     }
     planeGeometry.computeVertexNormals();
 
     const planeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x1e3a8a, // blue-900 grid
+      color: 0x1e3a8a,
       wireframe: true,
       transparent: true,
       opacity: 0.4,
@@ -114,23 +116,30 @@ export const Component = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // ANIMATION LOOP
-    let currentY = 0;
+    // ANIMATION LOOP WITH INTERSECTION OBSERVER
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(mountRef.current);
+
     let animationFrameId;
     const clock = new THREE.Clock();
 
     const animate = () => {
+      if (!isVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+      
       const elapsedTime = clock.getElapsedTime();
-
-      // Slowly rotate starfield
       particlesMesh.rotation.y = elapsedTime * 0.05;
       particlesMesh.rotation.x = elapsedTime * 0.02;
-
-      // Animate terrain slightly by moving it towards camera to give illusion of flying forward
-      currentY -= 0.02;
-      planeMesh.position.z = (elapsedTime * 4) % 1.66; // 1.66 is approx grid size (100 / 60)
+      planeMesh.position.z = (elapsedTime * 4) % 1.66;
       
-      // Mouse parallax camera movement
       camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
       camera.position.y += (mouseY * 2 + 8 - camera.position.y) * 0.05;
       camera.lookAt(0, 5, 0);
@@ -140,7 +149,6 @@ export const Component = () => {
     };
     animate();
 
-    // RESIZE EVENT
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -149,17 +157,14 @@ export const Component = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // CLEANUP
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
-      
-      // Safely check if mountRef.current still exists before removing child
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
       }
-      
       renderer.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
@@ -198,3 +203,4 @@ export const Component = () => {
     </div>
   );
 };
+

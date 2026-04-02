@@ -110,9 +110,11 @@ export default function Home() {
               <img
                 src={ind.image}
                 alt={ind.title}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
                 onError={(e) => { e.currentTarget.style.display = 'none'; }} // hides broken image icon if image is missing
               />
+
 
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:via-black/70" />

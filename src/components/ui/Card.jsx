@@ -1,39 +1,38 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Card({ children, className = '', hover = true, delay = 0, interactiveGlow = false }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
+  const glowRef = useRef(null);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !glowRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Use CSS variables for hardware-accelerated updates without React re-renders
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
 
   return (
     <motion.div
       ref={cardRef}
       onMouseMove={interactiveGlow ? handleMouseMove : undefined}
-      onMouseEnter={() => interactiveGlow && setIsHovered(true)}
-      onMouseLeave={() => interactiveGlow && setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay }}
-      className={`glass rounded-[2rem] p-8 relative overflow-hidden group ${hover ? 'glass-hover cursor-pointer transform hover:-translate-y-2 hover:shadow-2xl hover:border-white/20 transition-all duration-300' : ''} ${className}`}
+      className={`glass rounded-[2rem] p-8 relative overflow-hidden group gpu ${hover ? 'glass-hover cursor-pointer transform hover:-translate-y-2 hover:shadow-2xl hover:border-white/20 transition-all duration-300' : ''} ${className}`}
     >
-      {/* Interactive Glow Effect Layer */}
+      {/* Interactive Glow Effect Layer using CSS Variables */}
       {interactiveGlow && (
         <div
-          className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 z-0"
+          ref={glowRef}
+          className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition-opacity duration-300 z-0 group-hover:opacity-100"
           style={{
-            opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,.12), transparent 40%)`,
+            background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.08), transparent 40%)`,
           }}
         />
       )}
@@ -41,3 +40,4 @@ export default function Card({ children, className = '', hover = true, delay = 0
     </motion.div>
   );
 }
+
