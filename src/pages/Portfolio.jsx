@@ -47,7 +47,7 @@ export default function Portfolio() {
             {/* Right side: Explanation */}
             <div className="xl:w-1/2 w-full flex flex-col justify-center">
               <span className="text-blue-400 text-sm font-bold tracking-wider uppercase mb-3 block">Internal Startup Idea</span>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">Lab Linker</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight break-words">Lab Linker</h3>
               
               <div className="space-y-5 text-slate-400 text-lg leading-relaxed mb-10">
                 <p>
@@ -90,7 +90,7 @@ export default function Portfolio() {
             {/* Left side: Explanation (Reversed for visual rhythm) */}
             <div className="xl:w-1/2 w-full flex flex-col justify-center order-2 xl:order-1">
               <span className="text-rose-400 text-sm font-bold tracking-wider uppercase mb-3 block">Platform Engineering</span>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">StaySpot</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight break-words">StaySpot</h3>
               
               <div className="space-y-5 text-slate-400 text-lg leading-relaxed mb-10">
                 <p>
@@ -147,7 +147,7 @@ export default function Portfolio() {
             {/* Right side: Explanation */}
             <div className="xl:w-1/2 w-full flex flex-col">
               <span className="text-emerald-400 text-sm font-bold tracking-wider uppercase mb-3 block">Mobile App Engineering</span>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">ZeroToPro</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white tracking-tight break-words">ZeroToPro</h3>
               
               <div className="space-y-5 text-slate-400 text-lg leading-relaxed mb-10">
                 <p>

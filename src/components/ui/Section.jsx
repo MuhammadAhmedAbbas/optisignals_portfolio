@@ -24,7 +24,7 @@ export default function Section({
             transition={{ duration: 0.5 }}
             className={`mb-16 ${align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center'}`}
           >
-            {title && <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{title}</h2>}
+            {title && <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-white break-words">{title}</h2>}
             {subtitle && <p className={`text-lg text-slate-400 max-w-2xl ${align === 'center' ? 'mx-auto' : ''}`}>{subtitle}</p>}
           </motion.div>
         )}

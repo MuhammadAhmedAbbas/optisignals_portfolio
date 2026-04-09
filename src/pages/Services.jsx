@@ -18,7 +18,7 @@ export default function Services() {
       <Section title="Our Services" subtitle="Cutting-edge digital solutions tailored to elevate your business.">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
-            <Card key={idx} delay={idx * 0.1} className="h-full">
+            <Card key={idx} delay={idx * 0.1} to="/contact" className="h-full">
               <div className="mb-6 bg-[#0F172A] w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/5">
                 {service.icon}
               </div>

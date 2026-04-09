@@ -56,23 +56,25 @@ export default function Home() {
           align="left"
           className="relative z-10 pt-8"
         >
-          <div className="flex overflow-x-auto gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4">
+        <div className="w-full overflow-hidden">
+          <div className="flex overflow-x-auto gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
             {services.map((service, idx) => (
               <Card
                 key={idx}
                 delay={idx * 0.1}
+                to="/contact"
                 interactiveGlow={true}
                 className="w-[75vw] md:w-[380px] max-w-[380px] h-[280px] shrink-0 snap-center group overflow-hidden"
               >
                 <div className="h-full w-full flex flex-col justify-center group/content">
 
                   {/* Icon + Heading row */}
-                  <div className="flex flex-row items-center gap-6 mb-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-2">
-                    <div className="shrink-0 bg-[#0F172A] w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.35)] group-hover:scale-105 transition-all duration-500">
-                      {React.cloneElement(service.icon, { size: 32 })}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-2">
+                    <div className="shrink-0 bg-[#0F172A] w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.35)] group-hover:scale-105 transition-all duration-500">
+                      {React.cloneElement(service.icon, { size: 28 })}
                     </div>
                     {/* Heading: scale down instead of changing font-size */}
-                    <h3 className="text-3xl font-extrabold leading-tight text-white origin-left transform transition-all duration-500 group-hover:scale-90 group-hover:text-blue-400">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight text-white origin-left transform transition-all duration-500 group-hover:scale-95 group-hover:text-blue-400 break-words max-w-full">
                       {service.title}
                     </h3>
                   </div>
@@ -86,6 +88,7 @@ export default function Home() {
               </Card>
             ))}
           </div>
+        </div>
         </Section>
       </div>
 
@@ -95,11 +98,11 @@ export default function Home() {
         subtitle="Pioneering digital transformation and scaling architectures across global sectors."
         align="left"
       >
-        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[220px] gap-4">
+        <div className="flex overflow-x-auto gap-4 pb-8 md:grid md:grid-cols-4 md:auto-rows-[220px] snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
           {industries.map((ind, idx) => (
             <div
               key={idx}
-              className={`relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl ${ind.span}`}
+              className={`relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl shrink-0 w-[85vw] h-[300px] md:w-auto md:h-auto snap-center ${ind.span}`}
             >
               {/* Fallback pattern while waiting for images */}
               <div className="absolute inset-0 bg-[#0c1322] flex items-center justify-center">

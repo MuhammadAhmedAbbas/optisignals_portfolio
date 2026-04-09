@@ -86,7 +86,7 @@ export default function About() {
                 )}
                 <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-colors duration-300" />
               </div>
-              <h3 className="text-3xl font-bold mb-3 tracking-tight">{member.name}</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight break-words">{member.name}</h3>
               <p className="text-blue-400 font-bold text-sm tracking-widest uppercase mb-5">{member.role}</p>
               <p className="text-slate-400 text-lg leading-relaxed">{member.bio}</p>
             </Card>

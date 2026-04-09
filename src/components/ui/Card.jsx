@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-export default function Card({ children, className = '', hover = true, delay = 0, interactiveGlow = false }) {
+export default function Card({ children, className = '', hover = true, delay = 0, interactiveGlow = false, to }) {
   const cardRef = useRef(null);
   const glowRef = useRef(null);
 
@@ -19,6 +20,8 @@ export default function Card({ children, className = '', hover = true, delay = 0
   return (
     <motion.div
       ref={cardRef}
+      as={to ? Link : 'div'}
+      to={to}
       onMouseMove={interactiveGlow ? handleMouseMove : undefined}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

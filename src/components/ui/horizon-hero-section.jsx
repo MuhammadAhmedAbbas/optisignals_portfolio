@@ -24,8 +24,8 @@ export const Component = () => {
     camera.position.y = 8;
     camera.rotation.x = -0.2;
 
-    const renderer = new THREE.WebGLRenderer({ 
-      antialias: true, 
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
       alpha: true,
       powerPreference: "high-performance",
       stencil: false,
@@ -44,7 +44,7 @@ export const Component = () => {
       0.85
     );
     bloomPass.tintColor = new THREE.Color(0x3b82f6);
-    
+
     const composer = new EffectComposer(renderer);
     composer.addPass(renderScene);
     composer.addPass(bloomPass);
@@ -134,12 +134,12 @@ export const Component = () => {
         animationFrameId = requestAnimationFrame(animate);
         return;
       }
-      
+
       const elapsedTime = clock.getElapsedTime();
       particlesMesh.rotation.y = elapsedTime * 0.05;
       particlesMesh.rotation.x = elapsedTime * 0.02;
       planeMesh.position.z = (elapsedTime * 4) % 1.66;
-      
+
       camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
       camera.position.y += (mouseY * 2 + 8 - camera.position.y) * 0.05;
       camera.lookAt(0, 5, 0);
@@ -183,9 +183,9 @@ export const Component = () => {
 
   return (
     <div className="hero-container relative w-full h-screen overflow-hidden bg-black">
-      <div className="hero-canvas absolute top-0 left-0 w-full h-full" ref={mountRef}></div>
+      <div className="hero-canvas absolute top-0 left-0 w-full h-full" ref={mountRef} style={{ width: '100%', height: '100%' }}></div>
       <div className="hero-content absolute inset-0 flex flex-col items-start justify-center text-white text-left z-10 pointer-events-none px-6 md:px-24">
-        <h1 ref={titleRef} className="hero-title text-5xl md:text-7xl font-bold tracking-tight max-w-4xl bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-blue-400 pb-4">
+        <h1 ref={titleRef} className="hero-title text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight max-w-4xl bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-blue-400 pb-4 break-words">
           Build Fast. Scale Smart. Stay Secure.
         </h1>
         <p ref={subtitleRef} className="hero-subtitle mt-6 text-xl md:text-2xl opacity-80 max-w-2xl text-slate-300 font-light">

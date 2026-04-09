@@ -31,9 +31,9 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="fixed-bg" />
-      <div className="min-h-screen flex flex-col font-sans bg-[#020617] text-slate-200">
+      <div className="min-h-screen flex flex-col font-sans bg-[#020617] text-slate-200 overflow-x-hidden">
         <Navbar />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-0 overflow-x-hidden">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />

@@ -51,8 +51,9 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-slate-300"
+          className="md:hidden text-white bg-white/5 p-2 rounded-lg backdrop-blur-sm border border-white/10 active:scale-95 transition-all z-[60]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
