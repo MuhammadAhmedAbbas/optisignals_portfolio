@@ -56,44 +56,44 @@ export default function Home() {
           align="left"
           className="relative z-10 pt-8"
         >
-        <div className="w-full overflow-hidden">
-          <div className="flex overflow-x-auto gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
-            {services.map((service, idx) => (
-              <Card
-                key={idx}
-                delay={idx * 0.1}
-                to="/contact"
-                interactiveGlow={true}
-                className="w-[75vw] md:w-[380px] max-w-[380px] h-[280px] shrink-0 snap-center group overflow-hidden"
-              >
-                <div className="h-full w-full flex flex-col justify-center group/content">
+          <div className="w-full overflow-hidden">
+            <div className="flex overflow-x-auto gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
+              {services.map((service, idx) => (
+                <Card
+                  key={idx}
+                  delay={idx * 0.1}
+                  to="/contact"
+                  interactiveGlow={true}
+                  className="w-[75vw] md:w-[380px] max-w-[380px] h-[280px] shrink-0 snap-center group overflow-hidden"
+                >
+                  <div className="h-full w-full flex flex-col justify-center group/content">
 
-                  {/* Icon + Heading row */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-2">
-                    <div className="shrink-0 bg-[#0F172A] w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.35)] group-hover:scale-105 transition-all duration-500">
-                      {React.cloneElement(service.icon, { size: 28 })}
+                    {/* Icon + Heading row */}
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-2">
+                      <div className="shrink-0 bg-[#0F172A] w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.35)] group-hover:scale-105 transition-all duration-500">
+                        {React.cloneElement(service.icon, { size: 28 })}
+                      </div>
+                      {/* Heading: scale down instead of changing font-size */}
+                      <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight text-white origin-left transform transition-all duration-500 group-hover:scale-95 group-hover:text-blue-400 break-words max-w-full">
+                        {service.title}
+                      </h3>
                     </div>
-                    {/* Heading: scale down instead of changing font-size */}
-                    <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight text-white origin-left transform transition-all duration-500 group-hover:scale-95 group-hover:text-blue-400 break-words max-w-full">
-                      {service.title}
-                    </h3>
+
+                    {/* Preview text — no line-clamp jump, smooth reveal with translate and opacity */}
+                    <p className="text-slate-400 text-base leading-relaxed transition-all duration-500 opacity-60 group-hover:opacity-100 group-hover:text-slate-300 transform translate-y-2 group-hover:translate-y-0">
+                      {service.desc}
+                    </p>
+
                   </div>
-
-                  {/* Preview text — no line-clamp jump, smooth reveal with translate and opacity */}
-                  <p className="text-slate-400 text-base leading-relaxed transition-all duration-500 opacity-60 group-hover:opacity-100 group-hover:text-slate-300 transform translate-y-2 group-hover:translate-y-0">
-                    {service.desc}
-                  </p>
-
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center mt-4 pb-8 relative z-10 w-full">
-          <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
-            Get in Touch
-          </Button>
-        </div>
+          <div className="flex justify-center mt-4 pb-8 relative z-10 w-full">
+            <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+              Get in Touch
+            </Button>
+          </div>
         </Section>
       </div>
 
