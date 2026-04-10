@@ -196,7 +196,7 @@ export const Component = () => {
             Explore Services
           </Button>
           <Button to="/contact" variant="ghost" className="px-8 py-4 text-lg border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md">
-            Contact Us
+            Get in Touch
           </Button>
         </div>
       </div>

@@ -213,9 +213,9 @@ export default function Contact() {
                 <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400/10 group-hover:border-blue-400/30 transition-all">
                   <Mail size={24} />
                 </div>
-                <div>
+                <div className="flex-1 min-w-0">
                   <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">Drop an email</p>
-                  <a href="mailto:optisignalspark@gmail.com" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
+                  <a href="mailto:optisignalspark@gmail.com" className="text-base lg:text-xl font-semibold text-white hover:text-blue-400 transition-colors break-all sm:break-normal">
                     optisignalspark@gmail.com
                   </a>
                 </div>
@@ -231,8 +231,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">WhatsApp</p>
-                  <a href="https://wa.me/923399443301" target="_blank" rel="noreferrer" className="text-xl font-semibold text-white hover:text-emerald-400 transition-colors">
-                    +92 339 9443301
+                  <a href="https://wa.me/923208805439" target="_blank" rel="noreferrer" className="text-xl font-semibold text-white hover:text-emerald-400 transition-colors">
+                    03208805439
                   </a>
                 </div>
               </motion.div>
@@ -247,25 +247,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">Phone</p>
-                  <a href="tel:+923399443301" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
-                    +92 339 9443301
+                  <a href="tel:03208805439" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
+                    03208805439
                   </a>
-                </div>
-              </motion.div>
-
-              {/* International */}
-              <motion.div 
-                whileHover={{ x: 10 }}
-                className="flex items-center gap-6 group"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-purple-400 group-hover:bg-purple-400/10 group-hover:border-purple-400/30 transition-all">
-                  <Globe size={24} />
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">International</p>
-                  <p className="text-xl font-semibold text-white">
-                    +92 339 9443301
-                  </p>
                 </div>
               </motion.div>
 

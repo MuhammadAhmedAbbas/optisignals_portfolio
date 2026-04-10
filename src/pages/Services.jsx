@@ -2,6 +2,7 @@ import React from 'react';
 import { Globe, Smartphone, Monitor, ShoppingCart, Shield, Cpu } from 'lucide-react';
 import Section from '../components/ui/Section';
 import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
 export default function Services() {
   const services = [
@@ -16,6 +17,11 @@ export default function Services() {
   return (
     <div className="pt-24 min-h-screen">
       <Section title="Our Services" subtitle="Cutting-edge digital solutions tailored to elevate your business.">
+        <div className="flex justify-center mb-12">
+          <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+            Get in Touch
+          </Button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
             <Card key={idx} delay={idx * 0.1} to="/contact" className="h-full">

@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLink, CheckCircle, Activity, ShieldCheck, MapPin, Globe, CreditCard, Home, Trophy, Play, Target, Gauge } from 'lucide-react';
 import Section from '../components/ui/Section';
 import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
 // Import Lab Linker screenshots
 import lab1 from '../assets/lablinker/Screenshot 2026-03-30 091231.png';
@@ -176,6 +177,12 @@ export default function Portfolio() {
 
           </div>
         </Card>
+        
+        <div className="flex justify-center mt-12 mb-8">
+          <Button to="/contact" variant="primary" className="px-10 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+            Get in Touch
+          </Button>
+        </div>
       </Section>
     </div>
   );

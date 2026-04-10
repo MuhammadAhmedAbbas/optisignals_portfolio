@@ -3,22 +3,22 @@ import { motion } from 'framer-motion';
 import Section from '../components/ui/Section';
 import Card from '../components/ui/Card';
 import bgImage from '../assets/background.jpg';
-import ahmedImg from '../assets/founders/ahmed-profile.png';
-import abdullahImg from '../assets/founders/abdullah-profile.png';
+import ahmedImg from '../assets/founders/ahmed-profile-opt.png';
+import abdullahImg from '../assets/founders/abdullah-profile-opt.png';
 
 export default function About() {
   const team = [
+    { 
+      name: 'Abdullah Arif', 
+      role: 'CEO', 
+      bio: 'Digital marketer helping businesses grow through innovative strategies and data-driven results.',
+      image: abdullahImg
+    },
     { 
       name: 'Muhammad Ahmed Abbas', 
       role: 'Co-Founder & Full Stack Developer', 
       bio: 'Full-Stack Developer specializing in building scalable, high-performance web applications and intelligent digital ecosystems with relentless precision.',
       image: ahmedImg
-    },
-    { 
-      name: 'Abdullah Arif', 
-      role: 'Co-Founder & Digital Marketer', 
-      bio: 'Digital marketer helping businesses grow through innovative strategies and data-driven results.',
-      image: abdullahImg
     }
   ];
 
@@ -77,6 +77,7 @@ export default function About() {
                   <img 
                     src={member.image} 
                     alt={member.name} 
+                    loading="lazy"
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" 
                   />
                 ) : (

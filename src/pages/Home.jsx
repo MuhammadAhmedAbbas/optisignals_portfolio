@@ -89,6 +89,11 @@ export default function Home() {
             ))}
           </div>
         </div>
+        <div className="flex justify-center mt-4 pb-8 relative z-10 w-full">
+          <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+            Get in Touch
+          </Button>
+        </div>
         </Section>
       </div>
 
@@ -136,6 +141,11 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="flex justify-center mt-8">
+          <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+            Get in Touch
+          </Button>
         </div>
       </Section>
 
