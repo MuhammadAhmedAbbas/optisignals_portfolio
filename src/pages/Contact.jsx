@@ -232,7 +232,7 @@ export default function Contact() {
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">WhatsApp</p>
                   <a href="https://wa.me/923208805439" target="_blank" rel="noreferrer" className="text-xl font-semibold text-white hover:text-emerald-400 transition-colors">
-                    03208805439
+                    +923208805439
                   </a>
                 </div>
               </motion.div>
@@ -247,8 +247,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-1">Phone</p>
-                  <a href="tel:03208805439" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
-                    03208805439
+                  <a href="tel:+923208805439" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
+                    +923208805439
                   </a>
                 </div>
               </motion.div>
