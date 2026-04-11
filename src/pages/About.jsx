@@ -1,10 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+const LinkedinIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+    <rect x="2" y="9" width="4" height="12"/>
+    <circle cx="4" cy="4" r="2"/>
+  </svg>
+);
 import Section from '../components/ui/Section';
 import Card from '../components/ui/Card';
 import bgImage from '../assets/background.jpg';
-import ahmedImg from '../assets/founders/ahmed-profile-opt.png';
-import abdullahImg from '../assets/founders/abdullah-profile-opt.png';
+import ahmedImg from '../assets/founders/ahmed-profile.png';
+import abdullahImg from '../assets/founders/abdullah-profile.png';
 
 export default function About() {
   const team = [
@@ -12,13 +19,15 @@ export default function About() {
       name: 'Abdullah Arif', 
       role: 'CEO', 
       bio: 'Digital marketer helping businesses grow through innovative strategies and data-driven results.',
-      image: abdullahImg
+      image: abdullahImg,
+      linkedin: 'https://www.linkedin.com/in/abdullah-arif-a13502202/'
     },
     { 
       name: 'Muhammad Ahmed Abbas', 
       role: 'Co-Founder & Full Stack Developer', 
       bio: 'Full-Stack Developer specializing in building scalable, high-performance web applications and intelligent digital ecosystems with relentless precision.',
-      image: ahmedImg
+      image: ahmedImg,
+      linkedin: 'https://www.linkedin.com/in/ahmed-abbas-a4092a384/'
     }
   ];
 
@@ -44,7 +53,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="lg:w-1/2"
           >
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">About <br className="hidden md:block" />OptiSignal</h2>
+            <h2 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">About <br className="hidden md:block" />OptiSignals</h2>
             <p className="text-xl text-slate-400 leading-relaxed max-w-md">
               We are a modern digital agency driven by engineering excellence and relentless precision.
             </p>
@@ -87,7 +96,20 @@ export default function About() {
                 )}
                 <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-colors duration-300" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight break-words">{member.name}</h3>
+              <div className="flex flex-row items-center justify-between w-full mb-3 gap-4">
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">{member.name}</h3>
+                {member.linkedin && (
+                  <a 
+                    href={member.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-10 h-10 shrink-0 rounded-full glass flex items-center justify-center text-slate-400 hover:text-white glass-hover transition-colors"
+                    aria-label={`LinkedIn Profile of ${member.name}`}
+                  >
+                    <LinkedinIcon />
+                  </a>
+                )}
+              </div>
               <p className="text-blue-400 font-bold text-sm tracking-widest uppercase mb-5">{member.role}</p>
               <p className="text-slate-400 text-lg leading-relaxed">{member.bio}</p>
             </Card>

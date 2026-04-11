@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
             <span className="text-white text-lg font-bold">O</span>
           </div>
-          OptiSignal
+          OptiSignals
         </Link>
 
         {/* Desktop Nav */}
