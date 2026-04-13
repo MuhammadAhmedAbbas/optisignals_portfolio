@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Code, Smartphone, Shield, Globe, Monitor, ShoppingCart, Cpu } from 'lucide-react';
+import { ArrowRight, Code, Smartphone, Shield, Globe, Monitor, ShoppingCart, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
@@ -15,7 +15,63 @@ import imgFintech from '../assets/industries/fintech.jpg';
 import imgSaas from '../assets/industries/saas.jpg';
 import imgTravel from '../assets/industries/travel.jpg';
 import imgLogistics from '../assets/industries/logistics.jpg';
+function useScrollArrows(ref, count) {
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const update = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    // Determine active card by closest centre
+    const children = Array.from(el.children);
+    if (!children.length) return;
+    const elCentre = el.scrollLeft + el.clientWidth / 2;
+    let closest = 0;
+    let minDist = Infinity;
+    children.forEach((child, i) => {
+      const childCentre = child.offsetLeft + child.offsetWidth / 2;
+      const dist = Math.abs(childCentre - elCentre);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    setActiveIndex(closest);
+  }, [ref]);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      el.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [ref, update]);
+
+  const scrollBy = useCallback((dir) => {
+    ref.current?.scrollBy({ left: dir * 380, behavior: 'smooth' });
+  }, [ref]);
+
+  const scrollToIndex = useCallback((i) => {
+    const el = ref.current;
+    if (!el) return;
+    const child = el.children[i];
+    if (!child) return;
+    el.scrollTo({ left: child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2, behavior: 'smooth' });
+  }, [ref]);
+
+  return { canScrollLeft, canScrollRight, scrollBy, activeIndex, scrollToIndex };
+}
+
 export default function Home() {
+  const servicesRef = useRef(null);
+  const industriesRef = useRef(null);
+  const servicesScroll = useScrollArrows(servicesRef, 6);
+  const industriesScroll = useScrollArrows(industriesRef, 8);
+
   const services = [
     { icon: <Globe className="text-blue-400" size={32} />, title: 'Web Development', desc: 'Fast, responsive websites built to scale effortlessly without compromising speed.' },
     { icon: <Smartphone className="text-emerald-400" size={32} />, title: 'App Development', desc: 'Fluid mobile and web apps with seamless, native-feeling user experiences.' },
@@ -56,8 +112,27 @@ export default function Home() {
           align="left"
           className="relative z-10 pt-8"
         >
-          <div className="w-full overflow-hidden">
-            <div className="flex overflow-x-auto gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
+          <div className="flex items-center gap-3 w-full">
+            {/* Left Arrow — sits outside the scroll track */}
+            <button
+              onClick={() => servicesScroll.scrollBy(-1)}
+              aria-label="Scroll services left"
+              disabled={!servicesScroll.canScrollLeft}
+              className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+                ${
+                  servicesScroll.canScrollLeft
+                    ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                    : 'opacity-0 pointer-events-none border-transparent'
+                }`}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Scrollable cards */}
+            <div
+              ref={servicesRef}
+              className="flex-1 flex overflow-x-auto gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar overflow-y-hidden"
+            >
               {services.map((service, idx) => (
                 <Card
                   key={idx}
@@ -73,13 +148,13 @@ export default function Home() {
                       <div className="shrink-0 bg-[#0F172A] w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/10 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.35)] group-hover:scale-105 transition-all duration-500">
                         {React.cloneElement(service.icon, { size: 28 })}
                       </div>
-                      {/* Heading: scale down instead of changing font-size */}
+                      {/* Heading */}
                       <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight text-white origin-left transform transition-all duration-500 group-hover:scale-95 group-hover:text-blue-400 break-words max-w-full">
                         {service.title}
                       </h3>
                     </div>
 
-                    {/* Preview text — no line-clamp jump, smooth reveal with translate and opacity */}
+                    {/* Preview text */}
                     <p className="text-slate-400 text-base leading-relaxed transition-all duration-500 opacity-60 group-hover:opacity-100 group-hover:text-slate-300 transform translate-y-2 group-hover:translate-y-0">
                       {service.desc}
                     </p>
@@ -88,7 +163,39 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+
+            {/* Right Arrow — sits outside the scroll track */}
+            <button
+              onClick={() => servicesScroll.scrollBy(1)}
+              aria-label="Scroll services right"
+              disabled={!servicesScroll.canScrollRight}
+              className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+                ${
+                  servicesScroll.canScrollRight
+                    ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                    : 'opacity-0 pointer-events-none border-transparent'
+                }`}
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
+
+          {/* Dot indicators — services */}
+          <div className="flex justify-center items-center gap-2 mt-5 mb-2">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => servicesScroll.scrollToIndex(i)}
+                aria-label={`Go to service ${i + 1}`}
+                className={`rounded-full transition-all duration-300 ${
+                  servicesScroll.activeIndex === i
+                    ? 'w-6 h-2 bg-blue-400'
+                    : 'w-2 h-2 bg-white/25 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+
           <div className="flex justify-center mt-4 pb-8 relative z-10 w-full">
             <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
               Get in Touch
@@ -103,7 +210,25 @@ export default function Home() {
         subtitle="Pioneering digital transformation and scaling architectures across global sectors."
         align="left"
       >
-        <div className="flex overflow-x-auto gap-4 pb-8 md:grid md:grid-cols-4 md:auto-rows-[220px] snap-x snap-mandatory hide-scrollbar -mx-4 px-4 overflow-y-hidden">
+        <div className="flex items-center gap-3 w-full md:block">
+          {/* Left Arrow — mobile only, outside cards */}
+          <button
+            onClick={() => industriesScroll.scrollBy(-1)}
+            aria-label="Scroll industries left"
+            disabled={!industriesScroll.canScrollLeft}
+            className={`shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+              ${
+                industriesScroll.canScrollLeft
+                  ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                  : 'opacity-0 pointer-events-none border-transparent'
+              }`}
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <div
+            ref={industriesRef}
+            className="flex-1 flex overflow-x-auto gap-4 pb-8 md:grid md:grid-cols-4 md:auto-rows-[220px] snap-x snap-mandatory hide-scrollbar overflow-y-hidden">
           {industries.map((ind, idx) => (
             <div
               key={idx}
@@ -141,7 +266,40 @@ export default function Home() {
               </div>
             </div>
           ))}
+          </div>
+
+          {/* Right Arrow — mobile only, outside cards */}
+          <button
+            onClick={() => industriesScroll.scrollBy(1)}
+            aria-label="Scroll industries right"
+            disabled={!industriesScroll.canScrollRight}
+            className={`shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+              ${
+                industriesScroll.canScrollRight
+                  ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                  : 'opacity-0 pointer-events-none border-transparent'
+              }`}
+          >
+            <ChevronRight size={20} />
+          </button>
         </div>
+
+        {/* Dot indicators — industries (mobile only) */}
+        <div className="flex justify-center items-center gap-2 mt-5 mb-2 md:hidden">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => industriesScroll.scrollToIndex(i)}
+              aria-label={`Go to industry ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                industriesScroll.activeIndex === i
+                  ? 'w-6 h-2 bg-blue-400'
+                  : 'w-2 h-2 bg-white/25 hover:bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+
         <div className="flex justify-center mt-8">
           <Button to="/contact" variant="primary" className="px-8 py-3 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
             Get in Touch
