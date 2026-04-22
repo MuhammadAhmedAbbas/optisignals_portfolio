@@ -112,16 +112,16 @@ export default function Home() {
           align="left"
           className="relative z-10 pt-8"
         >
-          <div className="flex items-center gap-3 w-full">
-            {/* Left Arrow — sits outside the scroll track */}
+          <div className="relative w-full group/carousel">
+            {/* Left Arrow — absolute positioning */}
             <button
               onClick={() => servicesScroll.scrollBy(-1)}
               aria-label="Scroll services left"
               disabled={!servicesScroll.canScrollLeft}
-              className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+              className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300
                 ${
                   servicesScroll.canScrollLeft
-                    ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                    ? 'bg-black/40 backdrop-blur-md border-white/20 hover:bg-blue-500/50 hover:border-blue-400/50 cursor-pointer'
                     : 'opacity-0 pointer-events-none border-transparent'
                 }`}
             >
@@ -131,7 +131,7 @@ export default function Home() {
             {/* Scrollable cards */}
             <div
               ref={servicesRef}
-              className="flex-1 flex overflow-x-auto gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar overflow-y-hidden"
+              className="flex overflow-x-auto gap-4 md:gap-6 pb-12 pt-4 px-4 md:px-12 snap-x snap-mandatory hide-scrollbar overflow-y-hidden"
             >
               {services.map((service, idx) => (
                 <Card
@@ -139,7 +139,7 @@ export default function Home() {
                   delay={idx * 0.1}
                   to="/contact"
                   interactiveGlow={true}
-                  className="w-[75vw] md:w-[380px] max-w-[380px] h-[280px] shrink-0 snap-center group overflow-hidden"
+                  className="w-[85vw] md:w-[380px] max-w-full h-[280px] shrink-0 snap-center group overflow-hidden"
                 >
                   <div className="h-full w-full flex flex-col justify-center group/content">
 
@@ -164,15 +164,15 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Right Arrow — sits outside the scroll track */}
+            {/* Right Arrow — absolute positioning */}
             <button
               onClick={() => servicesScroll.scrollBy(1)}
               aria-label="Scroll services right"
               disabled={!servicesScroll.canScrollRight}
-              className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+              className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 shrink-0 flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300
                 ${
                   servicesScroll.canScrollRight
-                    ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                    ? 'bg-black/40 backdrop-blur-md border-white/20 hover:bg-blue-500/50 hover:border-blue-400/50 cursor-pointer'
                     : 'opacity-0 pointer-events-none border-transparent'
                 }`}
             >
@@ -210,16 +210,16 @@ export default function Home() {
         subtitle="Pioneering digital transformation and scaling architectures across global sectors."
         align="left"
       >
-        <div className="flex items-center gap-3 w-full md:block">
-          {/* Left Arrow — mobile only, outside cards */}
+        <div className="relative w-full group/carousel">
+          {/* Left Arrow — mobile only, absolute positioning */}
           <button
             onClick={() => industriesScroll.scrollBy(-1)}
             aria-label="Scroll industries left"
             disabled={!industriesScroll.canScrollLeft}
-            className={`shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300
               ${
                 industriesScroll.canScrollLeft
-                  ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                  ? 'bg-black/40 backdrop-blur-md border-white/20 hover:bg-blue-500/50 hover:border-blue-400/50 cursor-pointer'
                   : 'opacity-0 pointer-events-none border-transparent'
               }`}
           >
@@ -228,11 +228,11 @@ export default function Home() {
 
           <div
             ref={industriesRef}
-            className="flex-1 flex overflow-x-auto gap-4 pb-8 md:grid md:grid-cols-4 md:auto-rows-[220px] snap-x snap-mandatory hide-scrollbar overflow-y-hidden">
+            className="flex overflow-x-auto gap-4 pb-8 px-4 md:px-0 md:grid md:grid-cols-4 md:auto-rows-[220px] snap-x snap-mandatory hide-scrollbar overflow-y-hidden">
           {industries.map((ind, idx) => (
             <div
               key={idx}
-              className={`relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl shrink-0 w-[85vw] h-[300px] md:w-auto md:h-auto snap-center ${ind.span}`}
+              className={`relative rounded-3xl overflow-hidden group border border-white/10 shadow-2xl shrink-0 w-[85vw] max-w-full h-[300px] md:w-auto md:h-auto snap-center ${ind.span}`}
             >
               {/* Fallback pattern while waiting for images */}
               <div className="absolute inset-0 bg-[#0c1322] flex items-center justify-center">
@@ -268,15 +268,15 @@ export default function Home() {
           ))}
           </div>
 
-          {/* Right Arrow — mobile only, outside cards */}
+          {/* Right Arrow — mobile only, absolute positioning */}
           <button
             onClick={() => industriesScroll.scrollBy(1)}
             aria-label="Scroll industries right"
             disabled={!industriesScroll.canScrollRight}
-            className={`shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-lg transition-all duration-300
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 shrink-0 md:hidden flex items-center justify-center w-10 h-10 rounded-full border text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300
               ${
                 industriesScroll.canScrollRight
-                  ? 'bg-white/10 backdrop-blur-md border-white/20 hover:bg-blue-500/30 hover:border-blue-400/50 cursor-pointer'
+                  ? 'bg-black/40 backdrop-blur-md border-white/20 hover:bg-blue-500/50 hover:border-blue-400/50 cursor-pointer'
                   : 'opacity-0 pointer-events-none border-transparent'
               }`}
           >
